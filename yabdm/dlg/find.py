@@ -24,7 +24,7 @@ class FindDialog(wx.Dialog):
 
         self.hsizer = wx.BoxSizer()
         self.sizer.Add(self.hsizer)
-        self.choices = BDMType0.__attrs__
+        self.choices = BDMType0.__fields__
 
         self.entry = wx.Choice(self, -1, choices=self.choices)
 

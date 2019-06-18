@@ -347,14 +347,14 @@ class SubEntryPanel(wx.Panel):
         return SingleSelectionInfoBox(panel, *args, **kwargs)
 
     def load_sub_entry(self, sub_entry):
-        for name in sub_entry.__attrs__:
+        for name in sub_entry.__fields__:
             self[name].SetValue(sub_entry[name])
         self.sub_entry = sub_entry
 
     def save_sub_entry(self, _):
         if not self.sub_entry:
             return
-        for name in self.sub_entry.__attrs__:
+        for name in self.sub_entry.__fields__:
             self.sub_entry[name] = self[name].GetValue()
 
     def focus(self, entry):
