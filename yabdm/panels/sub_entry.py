@@ -130,7 +130,7 @@ class SubEntryPanel(wx.Panel):
             'Skill SE': 0xa,
             'Skill VOX': 0xb
         })
-        self.sound_id = self.add_num_entry(sound_panel, 'Sound Id')
+        self.sound_id = self.add_num_entry(sound_panel, 'Sound Id', min=-1)
 
         # Effect 1
         self.effect_1_eepk_id = self.add_num_entry(effect_panel, 'Effect 1 EEPK Id', False, min=-1)
