@@ -15,11 +15,11 @@ from yabdm.dlg.find import FindDialog
 from yabdm.dlg.replace import ReplaceDialog
 from pyxenoverse.gui.file_drop_target import FileDropTarget
 
-VERSION = '0.1.2'
+VERSION = '0.1.3'
 
 
 class MainWindow(wx.Frame):
-    def __init__(self, parent, title):
+    def __init__(self, parent, title, dirname, filename):
         sys.excepthook = self.exception_hook
         self.dirname = ''
         self.locale = wx.Locale(wx.LANGUAGE_ENGLISH)
@@ -136,6 +136,9 @@ class MainWindow(wx.Frame):
         sizer.Layout()
         self.Show()
 
+        if filename:
+            self.load_bdm(dirname, filename)
+
     def exception_hook(self, etype, value, trace):
         dlg = ScrolledMessageDialog(self, ''.join(traceback.format_exception(etype, value, trace)), "Error")
         dlg.ShowModal()
@@ -176,7 +179,7 @@ class MainWindow(wx.Frame):
             self.load_bdm(dlg.GetFilename(), dlg.GetDirectory())
         dlg.Destroy()
 
-    def load_bdm(self, filename, dirname):
+    def load_bdm(self, dirname, filename):
         self.dirname = dirname
         path = os.path.join(self.dirname, filename)
         self.statusbar.SetStatusText("Loading...")
@@ -237,5 +240,8 @@ class MainWindow(wx.Frame):
 
 if __name__ == '__main__':
     app = wx.App(False)
-    frame = MainWindow(None, "BDM Organizer v" + VERSION)
+    dirname = filename = None
+    if len(sys.argv) > 1:
+        dirname, filename = os.path.split(sys.argv[1])
+    frame = MainWindow(None, f"BDM Organizer v{VERSION}", dirname, filename)
     app.MainLoop()
