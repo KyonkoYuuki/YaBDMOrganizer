@@ -176,7 +176,7 @@ class MainWindow(wx.Frame):
     def open_bdm(self, _):
         dlg = wx.FileDialog(self, "Choose a file", self.dirname, "", "*.bdm", wx.FD_OPEN)
         if dlg.ShowModal() == wx.ID_OK:
-            self.load_bdm(dlg.GetFilename(), dlg.GetDirectory())
+            self.load_bdm(dlg.GetDirectory(), dlg.GetFilename())
         dlg.Destroy()
 
     def load_bdm(self, dirname, filename):
