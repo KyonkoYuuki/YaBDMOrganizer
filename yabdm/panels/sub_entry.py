@@ -133,8 +133,8 @@ class SubEntryPanel(wx.Panel):
         self.sound_id = self.add_num_entry(sound_panel, 'Sound Id', min=-1)
 
         # Effect 1
-        self.effect_1_eepk_id = self.add_num_entry(effect_panel, 'Effect 1 EEPK Id', False, min=-1)
-        self.effect_1_skill_id = self.add_num_entry(effect_panel, 'Effect 1 Skill Id', False, min=-1)
+        self.effect_1_eepk_id = self.add_num_entry(effect_panel, 'Effect 1 EEPK Id', min=-1)
+        self.effect_1_skill_id = self.add_num_entry(effect_panel, 'Effect 1 Skill Id', min=-1)
         self.effect_1_skill_type = self.add_single_selection_entry(effect_panel, 'Effect 1 Skill Type', choices={
             'Global': 0x0,
             'Dust': 0x1,
@@ -146,8 +146,8 @@ class SubEntryPanel(wx.Panel):
         })
 
         # Effect 2
-        self.effect_2_eepk_id = self.add_num_entry(effect_panel, 'Effect 2 EEPK Id', False, min=-1)
-        self.effect_2_skill_id = self.add_num_entry(effect_panel, 'Effect 2 Skill Id', False, min=-1)
+        self.effect_2_eepk_id = self.add_num_entry(effect_panel, 'Effect 2 EEPK Id', min=-1)
+        self.effect_2_skill_id = self.add_num_entry(effect_panel, 'Effect 2 Skill Id', min=-1)
         self.effect_2_skill_type = self.add_single_selection_entry(effect_panel, 'Effect 2 Skill Type', choices={
             'Global': 0x0,
             'Dust': 0x1,
@@ -159,8 +159,8 @@ class SubEntryPanel(wx.Panel):
         })
 
         # Effect 3
-        self.effect_3_eepk_id = self.add_num_entry(effect_panel, 'Effect 3 EEPK Id', False, min=-1)
-        self.effect_3_skill_id = self.add_num_entry(effect_panel, 'Effect 3 Skill', False, min=-1)
+        self.effect_3_eepk_id = self.add_num_entry(effect_panel, 'Effect 3 EEPK Id', min=-1)
+        self.effect_3_skill_id = self.add_num_entry(effect_panel, 'Effect 3 Skill', min=-1)
         self.effect_3_skill_type = self.add_single_selection_entry(effect_panel, 'Effect 3 Skill Type', choices={
             'Global': 0x0,
             'Dust': 0x1,
@@ -258,7 +258,7 @@ class SubEntryPanel(wx.Panel):
 
         # Stamina/Z Vanish
         self.stamina_broken_bdm_id_override = self.add_num_entry(
-            misc_panel, 'Stamina Broken BDM Id Override', False, min=-1)
+            misc_panel, 'Stamina Broken BDM Id Override', min=-1)
         self.time_before_z_vanish_enabled = self.add_num_entry(
             misc_panel, 'Time Before Z Vanish Enabled')
 

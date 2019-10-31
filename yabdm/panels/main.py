@@ -7,6 +7,7 @@ from wx.dataview import (
 )
 from pyxenoverse.bdm.entry import Entry
 from yabdm.dlg.new import NewEntryDialog
+from yabdm.dlg.convert import ConvertDialog
 from pubsub import pub
 
 
@@ -217,6 +218,50 @@ class MainPanel(wx.Panel):
             self.on_select(None)
             pub.sendMessage('set_status_bar', text=f'Pasted {len(paste_data)} entry(s)')
 
+    def convert_for_skill_creator(self):
+        if not self.bdm:
+            with wx.MessageDialog(self, "No BDM loaded!", "Error") as dlg:
+                dlg.ShowModal()
+            return
+
+        # Get choices
+        choices = set()
+        item = self.entry_list.GetFirstItem()
+        effect_ids = ['effect_1_skill_id', 'effect_2_skill_id', 'effect_3_skill_id']
+        while item.IsOk():
+            data = self.entry_list.GetItemData(item)
+            item = self.entry_list.GetNextItem(item)
+            for effect_id in effect_ids:
+                try:
+                    if data[effect_id] != 0 and data[effect_id] != 0xFFFF and data[effect_id] != 0xBACA:
+                        choices.update([str(data[effect_id])])
+                except Exception:
+                    pass
+
+        if not choices:
+            with wx.MessageDialog(self, "Cannot find any Skill IDs to convert", "Error") as dlg:
+                dlg.ShowModal()
+            return
+
+        # Show Dialog
+        with ConvertDialog(self, list(choices)) as dlg:
+            if dlg.ShowModal() != wx.ID_OK:
+                return
+            skill_id = dlg.GetValue()
+
+        # Do Conversion
+        item = self.entry_list.GetFirstItem()
+        changed = 0
+        while item.IsOk():
+            data = self.entry_list.GetItemData(item)
+            for effect_id in effect_ids:
+                try:
+                    data[effect_id] = 0xBACA
+                    changed += 1
+                except Exception:
+                    pass
+        pub.sendMessage('set_status_bar', text=f'Changed {changed} skill ids to 0xBACA')
+
     def reindex(self):
         selected = self.entry_list.GetSelections()
         if len(selected) != 1:
@@ -225,7 +270,4 @@ class MainPanel(wx.Panel):
         entry = self.entry_list.GetItemData(item)
         self.entry_list.DeleteItem(item)
         self.add_entry(entry)
-
-
-
 

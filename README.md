@@ -17,4 +17,5 @@ This is not a guide on what each entry means.  This is just a tool to make editi
 0.1.1 - Fixed bug converting Type1 BDM Entries to Type0 when opening files.
 0.1.2 - Fixed bug with sound ID entry not accepting -1
 0.1.3 - Added ability to drag/associate files to exe to open them
+0.1.4 - Fixed id bounds, added "convert to skill editor" option
 ```

@@ -15,7 +15,7 @@ from yabdm.dlg.find import FindDialog
 from yabdm.dlg.replace import ReplaceDialog
 from pyxenoverse.gui.file_drop_target import FileDropTarget
 
-VERSION = '0.1.3'
+VERSION = '0.1.4'
 
 
 class MainWindow(wx.Frame):
@@ -37,6 +37,7 @@ class MainWindow(wx.Frame):
         file_menu = wx.Menu()
         file_menu.Append(wx.ID_OPEN)
         file_menu.Append(wx.ID_SAVE)
+        file_menu.Append(wx.ID_CONVERT, "Convert for Skill Creator")
         file_menu.Append(wx.ID_ABOUT)
         file_menu.Append(wx.ID_EXIT)
 
@@ -72,6 +73,7 @@ class MainWindow(wx.Frame):
         self.Bind(wx.EVT_MENU, self.save_bdm, id=wx.ID_SAVE)
         self.Bind(wx.EVT_MENU, self.on_find, id=wx.ID_FIND)
         self.Bind(wx.EVT_MENU, self.on_replace, id=wx.ID_REPLACE)
+        self.Bind(wx.EVT_MENU, self.on_convert, id=wx.ID_CONVERT)
         self.Bind(wx.EVT_MENU, self.on_about, id=wx.ID_ABOUT)
         self.Bind(wx.EVT_MENU, self.on_exit, id=wx.ID_EXIT)
         self.Bind(wx.EVT_MENU, self.main_panel.on_add, id=wx.ID_ADD)
@@ -228,6 +230,9 @@ class MainWindow(wx.Frame):
             saved.ShowModal()
             saved.Destroy()
         dlg.Destroy()
+
+    def on_convert(self, _):
+        pub.sendMessage('convert_for_skill_creator')
 
     def on_find(self, _):
         if not self.replace.IsShown():
