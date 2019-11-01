@@ -35,6 +35,7 @@ class MainPanel(wx.Panel):
         self.entry_list.SetAcceleratorTable(accelerator_table)
 
         pub.subscribe(self.on_select, 'on_select')
+        pub.subscribe(self.convert_for_skill_creator, 'convert_for_skill_creator')
 
         # Use some sizers to see layout options
         sizer = wx.BoxSizer(wx.VERTICAL)
@@ -231,12 +232,13 @@ class MainPanel(wx.Panel):
         while item.IsOk():
             data = self.entry_list.GetItemData(item)
             item = self.entry_list.GetNextItem(item)
-            for effect_id in effect_ids:
-                try:
-                    if data[effect_id] != 0 and data[effect_id] != 0xFFFF and data[effect_id] != 0xBACA:
-                        choices.update([str(data[effect_id])])
-                except Exception:
-                    pass
+            for sub_entry in data.sub_entries:
+                for effect_id in effect_ids:
+                    try:
+                        if sub_entry[effect_id] != 0 and sub_entry[effect_id] != 0xFFFF and sub_entry[effect_id] != 0xBACA:
+                            choices.update([str(sub_entry[effect_id])])
+                    except Exception as e:
+                        pass
 
         if not choices:
             with wx.MessageDialog(self, "Cannot find any Skill IDs to convert", "Error") as dlg:
@@ -254,12 +256,16 @@ class MainPanel(wx.Panel):
         changed = 0
         while item.IsOk():
             data = self.entry_list.GetItemData(item)
-            for effect_id in effect_ids:
-                try:
-                    data[effect_id] = 0xBACA
-                    changed += 1
-                except Exception:
-                    pass
+            item = self.entry_list.GetNextItem(item)
+            for sub_entry in data.sub_entries:
+                for effect_id in effect_ids:
+                    if sub_entry[effect_id] == skill_id:
+                        try:
+                            sub_entry[effect_id] = 0xBACA
+                            changed += 1
+                        except Exception:
+                            pass
+        self.on_select(None)
         pub.sendMessage('set_status_bar', text=f'Changed {changed} skill ids to 0xBACA')
 
     def reindex(self):
