@@ -355,7 +355,16 @@ class SubEntryPanel(wx.Panel):
         if not self.sub_entry:
             return
         for name in self.sub_entry.__fields__:
-            self.sub_entry[name] = self[name].GetValue()
+            # SpinCtrlDoubles suck
+            control = self[name]
+            if isinstance(control, wx.SpinCtrlDouble):
+                try:
+                    self.sub_entry[name] = float(control.Children[0].GetValue())
+                except ValueError:
+                    # Keep old value if its mistyped
+                    pass
+            else:
+                self.sub_entry[name] = control.GetValue()
 
     def focus(self, entry):
         page = self.notebook.FindPage(self[entry].GetParent())

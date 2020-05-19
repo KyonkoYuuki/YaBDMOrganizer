@@ -19,4 +19,5 @@ This is not a guide on what each entry means.  This is just a tool to make editi
 0.1.3 - Added ability to drag/associate files to exe to open them
 0.1.4 - Fixed id bounds, added "convert to skill editor" option
 0.1.5 - Fixed id bounds again, fixed "convert to skill editor" option
+0.1.6 - Fixed floats not updating sometimes
 ```
