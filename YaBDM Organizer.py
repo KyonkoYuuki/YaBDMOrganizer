@@ -44,17 +44,6 @@ class MainWindow(wx.Frame):
         edit_menu = wx.Menu()
         edit_menu.Append(wx.ID_FIND)
         edit_menu.Append(wx.ID_REPLACE)
-        edit_menu.AppendSeparator()
-        self.add = edit_menu.Append(wx.ID_NEW)
-        self.add.Enable(False)
-        self.delete = edit_menu.Append(wx.ID_DELETE)
-        self.delete.Enable(False)
-        self.copy = edit_menu.Append(wx.ID_COPY)
-        self.copy.Enable(False)
-        self.paste = edit_menu.Append(wx.ID_PASTE)
-        self.paste.Enable(False)
-        self.add = edit_menu.Append(wx.ID_ADD, '&Add Copied Entry')
-        self.add.Enable(False)
 
         # Creating the menubar.
         menu_bar = wx.MenuBar()
@@ -81,7 +70,6 @@ class MainWindow(wx.Frame):
         self.Bind(wx.EVT_MENU, self.main_panel.on_delete, id=wx.ID_DELETE)
         self.Bind(wx.EVT_MENU, self.main_panel.on_copy, id=wx.ID_COPY)
         self.Bind(wx.EVT_MENU, self.main_panel.on_paste, id=wx.ID_PASTE)
-        self.Bind(wx.EVT_MENU_OPEN, self.on_menu_open)
         accelerator_table = wx.AcceleratorTable([
             (wx.ACCEL_CTRL, ord('n'), wx.ID_NEW),
             (wx.ACCEL_CTRL, ord('o'), wx.ID_OPEN),
@@ -145,23 +133,6 @@ class MainWindow(wx.Frame):
         dlg = ScrolledMessageDialog(self, ''.join(traceback.format_exception(etype, value, trace)), "Error")
         dlg.ShowModal()
         dlg.Destroy()
-
-    def on_menu_open(self, _):
-        self.copy.Enable(False)
-        self.paste.Enable(False)
-        self.delete.Enable(False)
-        self.add.Enable(False)
-        selection = self.entry_list.GetSelections()
-
-        enabled = selection != self.entry_list.GetFirstItem()
-        self.copy.Enable(enabled)
-        success = False
-        if enabled and wx.TheClipboard.Open():
-            success = wx.TheClipboard.IsSupported(wx.DataFormat("BDMEntry"))
-            wx.TheClipboard.Close()
-        self.paste.Enable(success)
-        self.delete.Enable(enabled)
-        self.add.Enable(enabled)
 
     def on_about(self, _):
         # Create a message dialog box
