@@ -21,4 +21,5 @@ This is not a guide on what each entry means.  This is just a tool to make editi
 0.1.5 - Fixed id bounds again, fixed "convert to skill editor" option
 0.1.6 - Fixed floats not updating sometimes
 0.1.7 - Added some unknown damage types from recent DLC's
+0.1.8 - Add automatic backup creation on saving
 ```
