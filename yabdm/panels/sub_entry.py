@@ -95,6 +95,9 @@ class SubEntryPanel(wx.Panel):
                 27: ['Knockback', {
                     2: 'Back to ground, arms/legs stretched out', 4: 'Crash roll', 8: 'Dazed float', 9: 'Knockback'}],
                 28: ['Knockback', {2: 'Arms/legs stretched out', 4: 'Crash roll', 8: 'Dazed float', 9: 'Knockback'}],
+                29: ['Unknown'],
+                30: ['Unknown'],
+                31: ['Unknown']
             })
         self.secondary_type = self.add_multiple_selection_entry(
             main_panel, 'Secondary Type', cols=1, orient=wx.HORIZONTAL, majorDimension=4, choices=[
