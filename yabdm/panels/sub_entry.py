@@ -104,7 +104,7 @@ class SubEntryPanel(wx.Panel):
                 ('Evasive Usage', {
                     'Enable': 0x0,
                     'Disable': 0x1,
-                    'Bypass Damage Type 0x31': 0x4,
+                    'Bypass Time Stop Damage': 0x4,
                     'Bypass Super Armor': 0x8}, False),
                 ('Unknown', None, True),
                 ('Health', {
