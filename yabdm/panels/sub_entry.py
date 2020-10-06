@@ -95,13 +95,17 @@ class SubEntryPanel(wx.Panel):
                 27: ['Knockback', {
                     2: 'Back to ground, arms/legs stretched out', 4: 'Crash roll', 8: 'Dazed float', 9: 'Knockback'}],
                 28: ['Knockback', {2: 'Arms/legs stretched out', 4: 'Crash roll', 8: 'Dazed float', 9: 'Knockback'}],
-                29: ['Unknown'],
+                29: ['Slow Opponent'],
                 30: ['Unknown'],
-                31: ['Unknown']
+                31: ['Time Stop']
             })
         self.secondary_type = self.add_multiple_selection_entry(
             main_panel, 'Secondary Type', cols=1, orient=wx.HORIZONTAL, majorDimension=4, choices=[
-                ('Evasive Usage', {'Enable': 0x0, 'Disable': 0x1}, False),
+                ('Evasive Usage', {
+                    'Enable': 0x0,
+                    'Disable': 0x1,
+                    'Bypass Damage Type 0x31': 0x4,
+                    'Bypass Super Armor': 0x8}, False),
                 ('Unknown', None, True),
                 ('Health', {
                     'Take away (0x0)': 0x0,
