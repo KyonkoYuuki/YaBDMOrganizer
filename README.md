@@ -23,4 +23,5 @@ This is not a guide on what each entry means.  This is just a tool to make editi
 0.1.7 - Added some unknown damage types from recent DLC's
 0.1.8 - Add automatic backup creation on saving
 0.1.9 - Updated primary and secondary damage types
+0.1.10 - Fixed find/replace dialogs so it works with int/hex/float
 ```

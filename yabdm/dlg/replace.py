@@ -31,8 +31,8 @@ class ReplaceDialog(FindDialog):
     def on_replace(self, _):
         entry_type = self.choices[self.entry.GetSelection()]
         try:
-            find = float(self.find_ctrl.GetValue())
-            replace = float(self.replace_ctrl.GetValue())
+            find = self.get_value(self.find_ctrl)
+            replace = self.get_value(self.replace_ctrl)
         except ValueError:
             self.status_bar.SetStatusText("Invalid Value")
             return None
@@ -57,8 +57,8 @@ class ReplaceDialog(FindDialog):
     def on_replace_all(self, _):
         entry_type = self.choices[self.entry.GetSelection()]
         try:
-            find = float(self.find_ctrl.GetValue())
-            replace = float(self.replace_ctrl.GetValue())
+            find = self.get_value(self.find_ctrl)
+            replace = self.get_value(self.replace_ctrl)
         except ValueError:
             self.status_bar.SetStatusText("Invalid Value")
             return None
