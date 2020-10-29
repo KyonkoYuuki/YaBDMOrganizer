@@ -69,7 +69,8 @@ class ReplaceDialog(FindDialog):
         while item.IsOk():
             data = self.entry_list.GetItemData(item)
             for sub_entry in data.sub_entries:
-                if sub_entry[entry_type] == find:
+                if sub_entry[entry_type] == find or (
+                        isinstance(sub_entry[entry_type], float) and abs(sub_entry[entry_type] - find) < 0.000001):
                     sub_entry[entry_type] = replace
                     count += 1
             item = self.entry_list.GetNextItem(item)
