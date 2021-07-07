@@ -135,7 +135,7 @@ class FindDialog(wx.Dialog):
         value = ctrl.GetValue()
         if value.startswith('0x'):
             return int(value, 16)
-        tempFloat = float(value)
-        if isinstance(tempFloat, float):
+        try:
+            return int(value,10)
+        except ValueError:
             return float(value)
-        return int(value, 10)
