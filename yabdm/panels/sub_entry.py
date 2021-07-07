@@ -127,7 +127,7 @@ class SubEntryPanel(wx.Panel):
                 }, False)
             ])
         self.damage_amount = self.add_num_entry(main_panel, 'Damage Amount')
-        self.special = self.add_num_entry(main_panel, 'Special')
+        self.damage_special = self.add_num_entry(main_panel, 'Special')
 
         # Sound
         self.sound_type = self.add_single_selection_entry(sound_panel, 'Sound Type', choices={
@@ -287,11 +287,11 @@ class SubEntryPanel(wx.Panel):
         self.u_3a = self.add_hex_entry(unknown_panel, 'U_3A')
         self.u_4c = self.add_hex_entry(unknown_panel, 'U_4C')
         self.u_52 = self.add_hex_entry(unknown_panel, 'U_52')
-        self.u_58 = self.add_hex_entry(unknown_panel, 'U_58')
-        self.u_5a = self.add_hex_entry(unknown_panel, 'U_5A')
-        self.u_5c = self.add_hex_entry(unknown_panel, 'U_5C')
-        self.u_60 = self.add_hex_entry(unknown_panel, 'U_60')
-        self.u_62 = self.add_hex_entry(unknown_panel, 'U_62')
+        self.u_58_1 = self.add_hex_entry(unknown_panel, 'U_58')
+        self.u_58_2 = self.add_hex_entry(unknown_panel, 'U_5A')
+        self.u_58_3 = self.add_hex_entry(unknown_panel, 'U_5C')
+        self.u_60_1 = self.add_hex_entry(unknown_panel, 'U_60')
+        self.u_60_2 = self.add_hex_entry(unknown_panel, 'U_62')
 
 
         # Binds
