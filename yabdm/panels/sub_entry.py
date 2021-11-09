@@ -101,11 +101,16 @@ class SubEntryPanel(wx.Panel):
             })
         self.secondary_type = self.add_multiple_selection_entry(
             main_panel, 'Secondary Type', cols=1, orient=wx.HORIZONTAL, majorDimension=4, choices=[
-                ('Evasive Usage', {
-                    'Enable': 0x0,
-                    'Disable': 0x1,
-                    'Bypass Time Stop Damage': 0x4,
-                    'Bypass Super Armor': 0x8}, False),
+                ('Damage Orienation', [
+                    'Face Opponent Always',
+                    'Unknown (0x2)',
+                    'Unknown (0x4)',
+                    'Unknown (0x8)'], True),
+                ('Damage Properties', [
+                    'Disable Evasive Usage',
+                    'Unknown (0x2)',
+                    'Bypass Time Stop Damage',
+                    'Bypass Super Armor'], True),
                 ('Unknown', None, True),
                 ('Health', {
                     'Take away (0x0)': 0x0,
@@ -259,9 +264,9 @@ class SubEntryPanel(wx.Panel):
         transparent_values = {-1: 'None'}
         transparent_values.update({value: f'{int(value/15.0 * 100)}% Opaque' for value in range(16)})
         self.user_screen_flash_transparency = self.add_unknown_num_entry(
-            camera_panel, 'User Screen Flash Transparency', min=-1, max=15, knownValues=transparent_values)
+            camera_panel, 'User Screen Flash Transparency', min=-1, max=9999, knownValues=transparent_values)
         self.victim_screen_flash_transparency = self.add_unknown_num_entry(
-            camera_panel, 'Victim Screen Flash Transparency', min=-1, max=15, knownValues=transparent_values)
+            camera_panel, 'Victim Screen Flash Transparency', min=-1, max=9999, knownValues=transparent_values)
 
         # Stamina/Z Vanish
         self.stamina_broken_bdm_id_override = self.add_num_entry(
