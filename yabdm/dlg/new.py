@@ -10,7 +10,7 @@ class NewEntryDialog(wx.Dialog):
 
         entry_sizer = wx.BoxSizer()
         entry_sizer.Add(wx.StaticText(self, -1, 'Enter new ID:'), 0, wx.ALL, 10)
-        self.entry_id = wx.SpinCtrl(self, min=0, max=0xFF, initial=current_entries[-1] + 1)
+        self.entry_id = wx.SpinCtrl(self, min=0, max=0xFFFF, initial=current_entries[-1] + 1)
         self.entry_id.SetFocus()
         entry_sizer.Add(self.entry_id, 0, wx.ALL, 10)
 

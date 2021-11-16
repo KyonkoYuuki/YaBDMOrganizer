@@ -65,14 +65,13 @@ class ReplaceDialog(FindDialog):
 
         # Replace all
         count = 0
-        item = self.entry_list.GetFirstItem()
-        while item.IsOk():
+        items = self.entry_list.GetSelections()
+        for item in items:
             data = self.entry_list.GetItemData(item)
             for sub_entry in data.sub_entries:
                 if sub_entry[entry_type] == find or (
                         isinstance(sub_entry[entry_type], float) and abs(sub_entry[entry_type] - find) < 0.000001):
                     sub_entry[entry_type] = replace
                     count += 1
-            item = self.entry_list.GetNextItem(item)
         pub.sendMessage('on_select', _=None)
         self.status_bar.SetStatusText(f'Replaced {count} entry(s)')

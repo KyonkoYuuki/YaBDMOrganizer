@@ -101,11 +101,16 @@ class SubEntryPanel(wx.Panel):
             })
         self.secondary_type = self.add_multiple_selection_entry(
             main_panel, 'Secondary Type', cols=1, orient=wx.HORIZONTAL, majorDimension=4, choices=[
-                ('Evasive Usage', {
-                    'Enable': 0x0,
-                    'Disable': 0x1,
-                    'Bypass Time Stop Damage': 0x4,
-                    'Bypass Super Armor': 0x8}, False),
+                ('Damage Orienation', [
+                    'Face Opponent Always',
+                    'Unknown (0x2)',
+                    'Unknown (0x4)',
+                    'Unknown (0x8)'], True),
+                ('Damage Properties', [
+                    'Disable Evasive Usage',
+                    'Unknown (0x2)',
+                    'Bypass Time Stop Damage',
+                    'Bypass Super Armor'], True),
                 ('Unknown', None, True),
                 ('Health', {
                     'Take away (0x0)': 0x0,
@@ -127,7 +132,7 @@ class SubEntryPanel(wx.Panel):
                 }, False)
             ])
         self.damage_amount = self.add_num_entry(main_panel, 'Damage Amount')
-        self.special = self.add_num_entry(main_panel, 'Special')
+        self.damage_special = self.add_num_entry(main_panel, 'Special')
 
         # Sound
         self.sound_type = self.add_single_selection_entry(sound_panel, 'Sound Type', choices={
@@ -259,9 +264,9 @@ class SubEntryPanel(wx.Panel):
         transparent_values = {-1: 'None'}
         transparent_values.update({value: f'{int(value/15.0 * 100)}% Opaque' for value in range(16)})
         self.user_screen_flash_transparency = self.add_unknown_num_entry(
-            camera_panel, 'User Screen Flash Transparency', min=-1, max=15, knownValues=transparent_values)
+            camera_panel, 'User BPE ID', min=-1, max=9999)
         self.victim_screen_flash_transparency = self.add_unknown_num_entry(
-            camera_panel, 'Victim Screen Flash Transparency', min=-1, max=15, knownValues=transparent_values)
+            camera_panel, 'Opponent BPE ID', min=-1, max=9999)
 
         # Stamina/Z Vanish
         self.stamina_broken_bdm_id_override = self.add_num_entry(
@@ -287,11 +292,11 @@ class SubEntryPanel(wx.Panel):
         self.u_3a = self.add_hex_entry(unknown_panel, 'U_3A')
         self.u_4c = self.add_hex_entry(unknown_panel, 'U_4C')
         self.u_52 = self.add_hex_entry(unknown_panel, 'U_52')
-        self.u_58 = self.add_hex_entry(unknown_panel, 'U_58')
-        self.u_5a = self.add_hex_entry(unknown_panel, 'U_5A')
-        self.u_5c = self.add_hex_entry(unknown_panel, 'U_5C')
-        self.u_60 = self.add_hex_entry(unknown_panel, 'U_60')
-        self.u_62 = self.add_hex_entry(unknown_panel, 'U_62')
+        self.u_58_1 = self.add_hex_entry(unknown_panel, 'U_58')
+        self.u_58_2 = self.add_hex_entry(unknown_panel, 'U_5A')
+        self.u_58_3 = self.add_hex_entry(unknown_panel, 'U_5C')
+        self.u_60_1 = self.add_hex_entry(unknown_panel, 'U_60')
+        self.u_60_2 = self.add_hex_entry(unknown_panel, 'U_62')
 
 
         # Binds
