@@ -264,9 +264,9 @@ class SubEntryPanel(wx.Panel):
         transparent_values = {-1: 'None'}
         transparent_values.update({value: f'{int(value/15.0 * 100)}% Opaque' for value in range(16)})
         self.user_screen_flash_transparency = self.add_unknown_num_entry(
-            camera_panel, 'User Screen Flash Transparency', min=-1, max=9999, knownValues=transparent_values)
+            camera_panel, 'User BPE ID', min=-1, max=9999)
         self.victim_screen_flash_transparency = self.add_unknown_num_entry(
-            camera_panel, 'Victim Screen Flash Transparency', min=-1, max=9999, knownValues=transparent_values)
+            camera_panel, 'Opponent BPE ID', min=-1, max=9999)
 
         # Stamina/Z Vanish
         self.stamina_broken_bdm_id_override = self.add_num_entry(
