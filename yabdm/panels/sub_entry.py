@@ -96,7 +96,7 @@ class SubEntryPanel(wx.Panel):
                     2: 'Back to ground, arms/legs stretched out', 4: 'Crash roll', 8: 'Dazed float', 9: 'Knockback'}],
                 28: ['Knockback', {2: 'Arms/legs stretched out', 4: 'Crash roll', 8: 'Dazed float', 9: 'Knockback'}],
                 29: ['Slow Opponent'],
-                30: ['Unknown'],
+                30: ['Brainwash'],
                 31: ['Time Stop']
             })
         self.secondary_type = self.add_multiple_selection_entry(
