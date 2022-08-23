@@ -100,7 +100,7 @@ class SubEntryPanel(wx.Panel):
                 31: ['Time Stop']
             })
         self.secondary_type = self.add_multiple_selection_entry(
-            main_panel, 'Secondary Type', cols=1, orient=wx.HORIZONTAL, majorDimension=4, choices=[
+            main_panel, 'Secondary Type', cols=4, orient=wx.VERTICAL, majorDimension=4, choices=[
                 ('Damage Orienation', [
                     'Face Opponent Always',
                     'Unknown (0x2)',
@@ -112,27 +112,12 @@ class SubEntryPanel(wx.Panel):
                     'Bypass Time Stop Damage',
                     'Bypass Super Armor'], True),
                 ('Unknown', None, True),
-                ('Health', {
-                    'Take away (0x0)': 0x0,
-                    'Restore (0x1)': 0x1,
-                    'Take away x10 (0x2)': 0x2,
-                    'Restore (0x3)': 0x3,
-                    'Take away (0x4)': 0x4,
-                    'Restore (0x5)': 0x5,
-                    'Take away x10 (0x6)': 0x6,
-                    'Restore (0x7)': 0x7,
-                    'Take away (0x8)': 0x8,
-                    'Restore (0x9)': 0x9,
-                    'Take away x10 (0xA)': 0xa,
-                    'Restore (0xB)': 0xb,
-                    'Take away (0xC)': 0xc,
-                    'Restore (0xD)': 0xd,
-                    'Take away x10 (0xE)': 0xe,
-                    'Restore (0xF)': 0xf,
-                }, False)
+                ('Health Properties', [
+                    'Restore Health'], True)
             ])
         self.damage_amount = self.add_num_entry(main_panel, 'Damage Amount')
         self.damage_special = self.add_num_entry(main_panel, 'Special')
+        self.damage_special2 = self.add_num_entry(main_panel, 'Special 2')
 
         # Sound
         self.sound_type = self.add_single_selection_entry(sound_panel, 'Sound Type', choices={
@@ -208,40 +193,19 @@ class SubEntryPanel(wx.Panel):
             0: 'None',
             1: 'Candy'
         })
-        self.ailment_type = self.add_unknown_num_entry(misc_panel, 'Ailment Type', knownValues={
-            0: "None",
-            1: "None",
-            2: "Health/Defense",
-            3: "Health/Defense",
-            4: "Speed",
-            5: "Speed",
-            6: "Health/Defense/Speed",
-            7: "Health/Defense/Speed",
-            8: "Target",
-            9: "Target",
-            10: "Health/Defense/Target",
-            11: "Health/Defense/Target",
-            12: "Speed/Target",
-            13: "Speed/Target",
-            14: "Health/Defense\nSpeed/Target",
-            15: "Health/Defense\nSpeed/Target",
-            16: "Seal Awoken skill",
-            17: "Seal Awoken skill",
-            18: "Seal Awoken skill\nHealth",
-            19: "Seal Awoken skill\nHealth",
-            20: "Seal Awoken skill\nSpeed",
-            21: "Seal Awoken skill\nSpeed",
-            22: "Seal Awoken skill\nHealth/Speed",
-            23: "Seal Awoken skill\nHealth/Speed",
-            24: "Seal Awoken skill\nTarget",
-            25: "Seal Awoken skill\nTarget",
-            26: "Seal Awoken skill\nHealth/Target",
-            27: "Seal Awoken skill\nHealth/Target",
-            28: "Seal Awoken skill\nSpeed/Target",
-            29: "Seal Awoken skill\nSpeed/Target",
-            30: "Seal Awoken skill\nHealth/Speed/Target",
-            31: "Seal Awoken skill\nHealth/Speed/Target",
-        })
+        self.ailment_type  = self.add_multiple_selection_entry(
+            misc_panel, 'Ailmemt Type', cols=4, orient=wx.VERTICAL, majorDimension=2, choices=[
+                ('Properties #2', [
+                    'Seal Awoken skill',
+                    'Unknown (0x2)',
+                    'Unknown (0x4)',
+                    'Unknown (0x8)'], True),
+                ('Properties #1', [
+                    'Unknown (0x1)',
+                    'HP/DEF',
+                    'SPD',
+                    'Target?'], True)
+            ])
         self.stumble_type = self.add_num_entry(misc_panel, 'Stumble Type')
 
         # Camera
@@ -296,7 +260,7 @@ class SubEntryPanel(wx.Panel):
         self.u_58_2 = self.add_hex_entry(unknown_panel, 'U_5A')
         self.u_58_3 = self.add_hex_entry(unknown_panel, 'U_5C')
         self.u_60_1 = self.add_hex_entry(unknown_panel, 'U_60')
-        self.u_60_2 = self.add_hex_entry(unknown_panel, 'U_62')
+
 
 
         # Binds
