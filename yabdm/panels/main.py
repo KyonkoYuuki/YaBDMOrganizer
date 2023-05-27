@@ -6,6 +6,7 @@ from wx.dataview import (
     TreeListCtrl, EVT_TREELIST_SELECTION_CHANGED, EVT_TREELIST_ITEM_CONTEXT_MENU, TLI_FIRST, TL_MULTIPLE
 )
 from pyxenoverse.bdm.entry import Entry
+from yabdm.dlg.comment import CommentDialog
 from yabdm.dlg.new import NewEntryDialog
 from yabdm.dlg.convert import ConvertDialog
 from pubsub import pub
@@ -22,14 +23,17 @@ class MainPanel(wx.Panel):
         self.entry_list.Bind(EVT_TREELIST_ITEM_CONTEXT_MENU, self.on_right_click)
         self.entry_list.Bind(EVT_TREELIST_SELECTION_CHANGED, self.on_select)
         self.cdo = wx.CustomDataObject("BDMEntry")
+        self.comment_id = wx.NewId()
 
         self.Bind(wx.EVT_MENU, self.on_delete, id=wx.ID_DELETE)
         self.Bind(wx.EVT_MENU, self.on_copy, id=wx.ID_COPY)
         self.Bind(wx.EVT_MENU, self.on_paste, id=wx.ID_PASTE)
         self.Bind(wx.EVT_MENU, self.on_new, id=wx.ID_NEW)
+        self.Bind(wx.EVT_MENU, self.on_comment, id=self.comment_id)
         accelerator_table = wx.AcceleratorTable([
             (wx.ACCEL_CTRL, ord('c'), wx.ID_COPY),
             (wx.ACCEL_CTRL, ord('v'), wx.ID_PASTE),
+            (wx.ACCEL_CTRL, ord('q'), self.comment_id),
             (wx.ACCEL_NORMAL, wx.WXK_DELETE, wx.ID_DELETE),
         ])
         self.entry_list.SetAcceleratorTable(accelerator_table)
@@ -49,7 +53,7 @@ class MainPanel(wx.Panel):
         self.entry_list.DeleteAllItems()
         root = self.entry_list.GetRootItem()
         for entry in sorted(self.bdm.entries, key=lambda e: e.id):
-            self.entry_list.AppendItem(root, f'{entry.id}: Entry', data=entry)
+            self.entry_list.AppendItem(root, f'{entry.id}: Entry{entry.getDisplayComment()}', data=entry)
 
     def get_current_entry_ids(self):
         entry_ids = []
@@ -81,6 +85,16 @@ class MainPanel(wx.Panel):
         paste = menu.Append(wx.ID_PASTE)
         add = menu.Append(wx.ID_ADD, '&Add Copied Entry')
         success = False
+
+        comment = menu.Append(self.comment_id, "Add Comment\tCtrl+Q", "Add Comment")
+
+        for sel in self.entry_list.GetSelections():
+            entry = self.entry_list.GetItemData(sel)
+
+            if entry.get_name() != "Entry":
+                comment.Enable(False)
+                break
+
 
         # Check Clipboard
         if wx.TheClipboard.Open():
@@ -276,4 +290,29 @@ class MainPanel(wx.Panel):
         entry = self.entry_list.GetItemData(item)
         self.entry_list.DeleteItem(item)
         self.add_entry(entry)
+
+    def on_comment(self, _):
+        selected = self.entry_list.GetSelections()
+        entry = self.entry_list.GetItemData(selected[0])
+
+
+        comment_val = ""
+        with CommentDialog(self, "Comment",entry.getComment(), -1) as dlg:
+            if dlg.ShowModal() != wx.ID_OK:
+                return
+            comment_val = dlg.GetValue()
+
+        for sel in selected:
+            entry = self.entry_list.GetItemData(sel)
+            entry.setComment(comment_val)
+
+        # update later to avoid offsetting twice
+        for sel in selected:
+            self.update_entry(sel, entry)
+
+        self.bdm.has_comments = True
+        pub.sendMessage('set_status_bar', text=f'Comment Added')
+
+    def update_entry(self, item, entry):
+        self.entry_list.SetItemText(item, f'{entry.id}: Entry{entry.getDisplayComment()}')
 

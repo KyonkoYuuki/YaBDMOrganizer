@@ -124,6 +124,7 @@ class SubEntryPanel(wx.Panel):
             'CAR_BTL_CMN': 0x0,
             'Player SE': 0x2,
             'Player VOX': 0x3,
+            'Unknown (0x5)': 0x5,
             'Skill SE': 0xa,
             'Skill VOX': 0xb
         })
